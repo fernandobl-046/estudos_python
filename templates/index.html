@@ -1,12 +1,58 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="{% static 'fontawesome_free/js/all.min.js' %}"></script>
+    <title>Aulas de Django, Python e Bootstrap</title>
 </head>
 
 <body>
-<div>Testando python {{ teste }}</div>    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">        
+      <div class="mx-auto order-0">
+        <a class="navbar-brand mx-auto" href="#">Estudos Python e Django</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+          {% url 'home' as home_url %}
+          <li class="nav-item {% if request.get_full_path == home_url %}active{% endif %}">
+          <a href="{% url 'home'%}" class="nav-link" href="#"><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
+          </li>
+          {% url 'produtos' as produtos_url %}
+          <li class="nav-item {% if request.get_full_path == produtos_url %}active{% endif %}">
+          <a href="{% url 'produtos'%}" class="nav-link" href="#"><i class="fas fa-puzzle-piece"></i> Produtos</a>
+          </li>
+          {% url 'empresa' as empresa_url %}
+          <li class="nav-item {% if request.get_full_path == empresa_url %}active{% endif %}">
+          <a href="{% url 'empresa'%}" class="nav-link" href="#"><i class="fas fa-building"></i> Empresa</a>
+          </li>
+          {% url 'contato' as contato_url %}
+          <li class="nav-item {% if request.get_full_path == contato_url %}active{% endif %}">
+          <a href="{% url 'contato'%}" class="nav-link" href="#"><i class="fas fa-id-card"></i> Contato</a>
+          </li>
+        </ul>        
+      </div>
+    </nav>
+    <div class="container p-3 my-3 bg-dark text-white text-center rounded">
+      {% block content %}
+      <h1>Bem vindo</h1>
+      <p>Aqui vamos aprender como desenvolver um website utilizando python, django, bootstrap e outras ferramentas que auxiliam um desenvolvimento mais rápido e responsivo para smartphone e desktop.</p>
+      <div class="col-6 p-3 my-3 border bg-white text-dark m-auto">
+        <div class="column">          
+          <img src="{% static 'imgs/djangologo.png' %}" width="200" height="auto">
+          <img src="{% static 'imgs/pythonlogo.png' %}" width="200" height="auto">
+          <img src="{% static 'imgs/bootstraplogo.png' %}" width="200" height="auto">
+        </div>
+      </div>
+      {% endblock %}
+    </div>
 </body>
 </html>
