@@ -1,33 +1,21 @@
 from django.shortcuts import render
-from django.urls import path
+from django.shortcuts import redirect
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from core.models import Contato
 
 
 def home(request):
-    latest_question_list = "Django"
-    context = {
-        'teste': latest_question_list,
-    }
-    return render(request, 'index.html', context)
-
+    return render(request, 'index.html')
 
 def produtos(request):
-    latest_question_list = "Django"
-    context = {
-        'teste': latest_question_list,
-    }
-    return render(request, 'produtos.html', context)
-
+    return render(request, 'produtos.html')
 
 def empresa(request):
-    latest_question_list = "Django"
-    context = {
-        'teste': latest_question_list,
-    }
-    return render(request, 'empresa.html', context)
+    return render(request, 'empresa.html')
 
-
+@login_required
 def contato(request):
     if request.method == 'GET':
         contatos = Contato.objects.all()        
@@ -45,6 +33,15 @@ def contato(request):
         except Exception as e:
             return JsonResponse("Erro" + e, safe=False)
 
-    
-
-    
+def logar(request):
+    if request.method == 'GET':
+        return render(request, 'logar.html')
+    if request.method == 'POST':
+        loginuser = request.POST['login']
+        senhauser = request.POST['senha']
+        usuario = authenticate(request, username=loginuser, password=senhauser)
+        if usuario is not None:
+            login(request, usuario)
+            return redirect('/contato/')
+        else:
+            return render(request, 'logar.html', {'erro': 'Não foi possível logar'})

@@ -20,7 +20,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
       </div>
-      <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+      <div class="navbar-collapse collapse w-100 order-3 dual-collapse2 text-center">
         <ul class="navbar-nav ml-auto">
           {% url 'home' as home_url %}
           <li class="nav-item {% if request.get_full_path == home_url %}active{% endif %}">
@@ -45,7 +45,7 @@
       {% block content %}
       <h1>Bem vindo</h1>
       <p>Aqui vamos aprender como desenvolver um website utilizando python, django, bootstrap e outras ferramentas que auxiliam um desenvolvimento mais rápido e responsivo para smartphone e desktop.</p>
-      <div class="col-6 p-3 my-3 border bg-white text-dark m-auto">
+      <div class="col-8 p-3 my-3 border bg-white text-dark m-auto">
         <div class="column">          
           <img src="{% static 'imgs/djangologo.png' %}" width="200" height="auto">
           <img src="{% static 'imgs/pythonlogo.png' %}" width="200" height="auto">
