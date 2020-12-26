@@ -58,7 +58,7 @@
         const nome = $("#nome").val();
         const email = $("#email").val();
         const comment = $("#comment").val();
-        if((nome || email || comment) === ""){
+        if(nome === "" || email === "" || comment === ""){
             alert("Algum campo está em branco, verifique!");
         }else{
             let formData = {}
