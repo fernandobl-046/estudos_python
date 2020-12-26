@@ -4,6 +4,7 @@ Para funcionar precisa instalar o django e o environment
 pip install django
 
 #Instalar o env
+pip install virtualenv
 virtualenv env
 env/Scripts/activate
 
