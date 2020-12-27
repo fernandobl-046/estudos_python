@@ -18,7 +18,7 @@ def empresa(request):
 @login_required
 def contato(request):
     if request.method == 'GET':
-        contatos = Contato.objects.all()        
+        contatos = Contato.objects.filter(ativo=True).order_by('-data_criacao')
         context = {
             'contatos': contatos,
         }

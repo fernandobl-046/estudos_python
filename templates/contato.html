@@ -6,21 +6,12 @@
 			<div class="contact-info">
 				<img src="https://image.ibb.co/kUASdV/contact-image.png" alt="image"/>
 				<h2>Contato</h2>
-        <h4>Nós queremos ouvir você!</h4>
-                <!-- {% if contatos %}
-                <ul>
-                    {% for contato in contatos %}
-                    <li>Nome: {{ contato.nome }}</li>
-                    <li>Email: {{ contato.email }}</li>
-                    <li>Conteúdo: {{ contato.conteudo }}</li>
-                    {% endfor %}                
-                </ul> 
-                {% endif %} -->
+        <h4>Nós queremos ouvir você!</h4>                
 			</div>
 		</div>
 		<div class="col-md-9">
 			<div class="contact-form">
-            <form id="contato">
+        <form id="contato">
 				<div class="form-group text-left">
 				  <label class="control-label col-sm-2" for="nome">Nome:</label>
 				  <div class="col-sm-10">          
@@ -43,11 +34,28 @@
 				  <div class="col-sm-offset-2 col-sm-10">
 					<button type="submit" class="btn btn-default">Enviar</button>
 				  </div>
-                </div>
-            </form>
-			</div>
+        </div>
+        </form>
+      </div>      
 		</div>
-	</div>
+  </div>
+  {% if contatos %}
+      <div class="container col-8 m-auto mt-5">        
+      <h2>Lista de Contatos</h2>
+      <ul class="list-group">        
+        {% for contato in contatos %}
+        <li class="list-group-item list-group-item-action flex-column align-items-start">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{ contato.nome }}</h5>
+            <small>{{ contato.email }}</small>
+            <small>{{ contato.data_criacao}}</small>
+          </div>
+          <p class="mb-1 text-left">{{ contato.conteudo }}</p>
+        </li>        
+        {% endfor %}       
+      </ul>
+      </div>
+        {% endif %}
 </div>
 {% endblock %}
 
