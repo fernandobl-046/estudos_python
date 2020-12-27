@@ -8,6 +8,6 @@ pip install virtualenv
 
 virtualenv env
 
-env/Scripts/activa  te
+env/Scripts/activate
 
 Sempre utilizar o comando env/Scripts/activate para inicializar e depois python manage.py runserver para iniciar o servidor
