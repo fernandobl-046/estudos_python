@@ -45,6 +45,7 @@
       {% block content %}
       <h1>Bem vindo</h1>
       <p>Aqui vamos aprender como desenvolver um website utilizando python, django, bootstrap e outras ferramentas que auxiliam um desenvolvimento mais rápido e responsivo para smartphone e desktop.</p>
+      <button type="button" onclick="return calcular_desconto()">Calcular</button>
       <div class="col-8 p-3 my-3 border bg-white text-dark m-auto">
         <div class="column">          
           <img src="{% static 'imgs/djangologo.png' %}" width="200" height="auto">
@@ -114,5 +115,22 @@
     </footer>
 </body>
 {% block script %}
+<script>
+function calcular_desconto(){
+  const url = `{% url 'calcular' %}`;
+  $.ajax({
+    url: url,
+    method: 'get',
+    success: data => {
+        console.log(data);
+    },
+    error: error => {      
+      console.error(error);
+    }
+  })
+  return false;
+}
+  
+</script>
 {% endblock %}
 </html>
