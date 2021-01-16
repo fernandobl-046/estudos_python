@@ -121,6 +121,7 @@ function calcular_desconto(){
   $.ajax({
     url: url,
     method: 'get',
+    data: {'frete':'10.15'},
     success: data => {
         console.log(data);
     },
