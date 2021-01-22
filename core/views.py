@@ -1,3 +1,4 @@
+import requests
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login
@@ -93,4 +94,12 @@ class PagadorShipay:
             print("{:.2f}".format(total_value))
 
             return JsonResponse('teste', status=200, safe=False)
+
+
+class PesquisarAPI:
+    def get(self, request):
+        headers = {}
+        params = {}
+        requests.post("https://teste.com", headers=headers, json=params)
+
         
