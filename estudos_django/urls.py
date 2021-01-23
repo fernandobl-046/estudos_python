@@ -6,6 +6,7 @@ from core import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('index/calcular', views.PagadorShipay.calcular_carrinho, name='calcular'),
+    path('testes_api/', views.PesquisarAPI.as_view(), name='testes_api'),
     path('accounts/login/', views.logar, name='logar'),
     path('produtos/', views.produtos, name='produtos'),
     path('empresa/', views.empresa, name='empresa'),

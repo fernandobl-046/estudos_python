@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from core.models import Contato
+from django.views import View
 
 
 def home(request):
@@ -96,10 +97,16 @@ class PagadorShipay:
             return JsonResponse('teste', status=200, safe=False)
 
 
-class PesquisarAPI:
+class PesquisarAPI(View):
     def get(self, request):
-        headers = {}
-        params = {}
-        requests.post("https://teste.com", headers=headers, json=params)
-
-        
+       return render(request, 'testes_api.html')
+   
+    def post(self, request):
+        headers = {
+            "Content-Type": "application/json"
+        }
+        response =  requests.get("https://api.spacexdata.com/v4/launches/latest", headers=headers)        
+        if response.status_code == 200:
+            return JsonResponse(response.json(), status=200, safe=False)
+        else:
+            return JsonResponse("Algum erro aconteceu", status=500, safe=False)

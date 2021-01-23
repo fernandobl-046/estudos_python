@@ -1,0 +1,15 @@
+{% extends "index.html" %}
+{% block content %}
+  <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-dark">
+    <div class="col-md-5 p-lg-5 mx-auto my-5">
+      <h1 class="font-weight-normal">Pesquisar API</h1>
+      <p class="lead font-weight-normal">
+        <button class="btn btn-outline-primary"type="button" onclick="return pesquisar_api()">Pesquisar Api</button>
+      </p>
+    </div>
+  </div>
+  <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+    <div id="result_pesquisa" class="my-3 p-3">
+    </div>
+  </div>
+{% endblock %}
