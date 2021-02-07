@@ -1,0 +1,58 @@
+{% extends "index.html" %}
+{% block content %}
+<div style="width: 500px; margin: auto;">
+  <ul>
+  {% for carro in carros %}  
+    <li>
+    <div>Marca: {{ carro.marca }}
+    Ano: {{ carro.ano }}
+    Cor: {{ carro.cor }}
+    Combustível: {{ carro.combustivel }}</div>
+    </li>
+  {% endfor %}
+  </ul>
+<h1 class="font-weight-normal">Formulário carro</h1>
+    <form id="form_carro">
+      <div class="form-group">
+        <label for="id_marca">Marca</label>
+        <input type="text" class="form-control" id="id_marca" placeholder="Digite a marca">
+      </div>
+      <div class="form-group">        
+        <label for="id_ano">Ano</label>
+        <input type="number" class="form-control" id="id_ano" placeholder="Digite o ano">
+      </div>
+      <div class="form-group">         
+        <label for="id_cor">Cor</label>
+        <input type="text" class="form-control" id="id_cor" placeholder="Digite a cor">
+      </div>
+      <div class="form-group"> 
+        <label for="id_combustivel">Combustível</label>
+        <input type="text" class="form-control" id="id_combustivel" placeholder="Digite o combustível">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <script>
+      $("#form_carro").submit((e) => {
+        e.preventDefault();
+        let formData = {}
+        formData.csrfmiddlewaretoken = "{{ csrf_token }}";
+        formData.marca = $("#id_marca").val();
+        formData.ano = $("#id_ano").val();
+        formData.cor = $("#id_cor").val();
+        formData.combustivel = $("#id_combustivel").val();
+        $.ajax({
+          url: "{% url 'aula'%}",
+          method: "post",
+          data: formData,
+          success: response => {
+            console.log(response);
+            alert(response);
+          },
+          error: error => {
+            console.error(error);
+          }
+        })
+      });
+    </script>
+{% endblock %}

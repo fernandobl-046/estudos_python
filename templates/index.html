@@ -34,6 +34,10 @@
           <li class="nav-item {% if request.get_full_path == testes_api_url %}active{% endif %}">
           <a href="{% url 'testes_api'%}" class="nav-link" href="#"><i class="fas fa-puzzle-piece"></i> Testes API</a>
           </li>
+          {% url 'aula' as aula_python %}
+          <li class="nav-item {% if request.get_full_path == aula_python %}active{% endif %}">
+          <a href="{% url 'aula'%}" class="nav-link" href="#"><i class="fas fa-puzzle-piece"></i> Aula python</a>
+          </li>
           {% url 'empresa' as empresa_url %}
           <li class="nav-item {% if request.get_full_path == empresa_url %}active{% endif %}">
           <a href="{% url 'empresa'%}" class="nav-link" href="#"><i class="fas fa-building"></i> Empresa</a>

@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from core.models import Contato
+from core.models import Contato, Carro
 from django.views import View
 
 
@@ -110,3 +110,23 @@ class PesquisarAPI(View):
             return JsonResponse(response.json(), status=200, safe=False)
         else:
             return JsonResponse("Algum erro aconteceu", status=500, safe=False)
+
+class AulaPython(View):
+    def get(self, request):
+        carros = Carro.objects.all() 
+        ctx = {
+            'carros': carros
+        }
+        return render(request, 'aulapython.html', ctx)
+    
+    def post(self, request):
+        marca = request.POST.get("marca")
+        ano = request.POST.get("ano")
+        cor = request.POST.get("cor")
+        combustivel = request.POST.get("combustivel")
+
+        if marca and ano and cor and combustivel:
+            Carro.objects.create(marca=marca, ano=ano, cor=cor, combustivel=combustivel)
+            return JsonResponse("Foi cadastrado!", status=200, safe=False)
+        else:
+            return JsonResponse("Falta algum campo, verifique", status=200, safe=False)
