@@ -11,11 +11,14 @@ from django.views import View
 def home(request):
     return render(request, 'index.html')
 
+
 def produtos(request):
     return render(request, 'produtos.html')
 
+
 def empresa(request):
     return render(request, 'empresa.html')
+
 
 @login_required
 def contato(request):
@@ -29,11 +32,12 @@ def contato(request):
         try:
             nome = request.POST.get('nome')
             email = request.POST.get('email')
-            comment =  request.POST.get('comment')
+            comment = request.POST.get('comment')
             Contato.objects.create(nome=nome, email=email, conteudo=comment)
             return JsonResponse("Gravou", safe=False)
         except Exception as e:
             return JsonResponse("Erro" + e, safe=False)
+
 
 def logar(request):
     if request.method == 'GET':
@@ -52,12 +56,12 @@ def logar(request):
 class PagadorShipay:
 
     def __init__(self, url_api, total_frete=0):
-       self.url_api = url_api
-       self.total_frete = total_frete
+        self.url_api = url_api
+        self.total_frete = total_frete
 
     @staticmethod
     def convert_to_float(number):
-            return float(number)
+        return float(number)
 
     @classmethod
     def calcular_carrinho(cls, request):
@@ -68,10 +72,10 @@ class PagadorShipay:
             total_value = 0.00
 
             list_items = [{
-                    'product_name': 'Frete',
-                    'quantity': 1,
-                    'value_item': round(total_frete, 2)
-                }]
+                'product_name': 'Frete',
+                'quantity': 1,
+                'value_item': round(total_frete, 2)
+            }]
 
             for item in range(2):
                 list_items.append({
@@ -87,7 +91,7 @@ class PagadorShipay:
                 for item in list_items:
                     desconto_item = round(item['value_item'] - calcular_desconto, 2)
                     item['value_item'] = desconto_item
-            
+
             for item in list_items:
                 calcular_total = round(item['value_item'] * item['quantity'], 2)
                 total_value += calcular_total
@@ -99,26 +103,27 @@ class PagadorShipay:
 
 class PesquisarAPI(View):
     def get(self, request):
-       return render(request, 'testes_api.html')
-   
+        return render(request, 'testes_api.html')
+
     def post(self, request):
         headers = {
             "Content-Type": "application/json"
         }
-        response =  requests.get("https://api.spacexdata.com/v4/launches/latest", headers=headers)        
+        response = requests.get("https://api.spacexdata.com/v4/launches/latest", headers=headers)
         if response.status_code == 200:
             return JsonResponse(response.json(), status=200, safe=False)
         else:
             return JsonResponse("Algum erro aconteceu", status=500, safe=False)
 
+
 class AulaPython(View):
     def get(self, request):
-        carros = Carro.objects.all() 
+        carros = Carro.objects.all()
         ctx = {
             'carros': carros
         }
         return render(request, 'aulapython.html', ctx)
-    
+
     def post(self, request):
         marca = request.POST.get("marca")
         ano = request.POST.get("ano")
