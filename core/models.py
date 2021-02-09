@@ -17,4 +17,12 @@ class Contato(BaseModel):
 
     def __str__(self):
         return self.nome
-    
+
+class Carro(BaseModel):
+    marca = models.TextField("Marca do carro", max_length=100)
+    ano = models.PositiveIntegerField("Ano")
+    cor = models.CharField(max_length=10)
+    combustivel = models.CharField(max_length=10)
+
+    def __str__(self):
+        return self.marca

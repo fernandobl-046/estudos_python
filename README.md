@@ -4,7 +4,9 @@ Para funcionar precisa instalar o django e o environment
 pip install virtualenv
 # Instalar o django
 pip install django
+
 virtualenv env
+
 env/Scripts/activate
 # Instalar os modulos e requeriments.txt
 pip install -r requeriments.txt
