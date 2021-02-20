@@ -85,6 +85,7 @@
                 location.reload();
             },
             error: (error) => {
+                alert(error.statusText);
                 console.error(error);
             }
         });

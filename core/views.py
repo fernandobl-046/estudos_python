@@ -33,10 +33,13 @@ def contato(request):
             nome = request.POST.get('nome')
             email = request.POST.get('email')
             comment = request.POST.get('comment')
+            verificar_contato = Contato.objects.filter(email=email)
+            if verificar_contato:
+                return JsonResponse("Esse e-mail já existe em nosso banco de dados!", status=200, safe=False)
             Contato.objects.create(nome=nome, email=email, conteudo=comment)
-            return JsonResponse("Gravou", safe=False)
+            return JsonResponse("Gravou", status=200, safe=False)
         except Exception as e:
-            return JsonResponse("Erro" + e, safe=False)
+            return JsonResponse("Erro" + e, status=500, safe=False)
 
 
 def logar(request):
