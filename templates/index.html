@@ -1,4 +1,4 @@
-{% load static %}
+{% load static custom_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,6 +59,13 @@
 <div class="container p-3 my-3 bg-dark text-white text-center rounded">
     {% block content %}
     <h1>Bem vindo</h1>
+    <ul>
+        {% for test in status %}
+        <li>
+            {{ test }} - {{ test|get_val:status }}
+        </li>
+        {% endfor %}
+    </ul>
     <p>Aqui vamos aprender como desenvolver um website utilizando python, django, bootstrap e outras ferramentas que
         auxiliam um desenvolvimento mais rápido e responsivo para smartphone e desktop.</p>
     <button type="button" onclick="return calcular_desconto()">Calcular</button>
@@ -212,6 +219,7 @@ function pesquisar_api(){
   })
   return false;
 }
+
 
 </script>
 {% endblock %}

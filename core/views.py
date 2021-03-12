@@ -9,7 +9,18 @@ from django.views import View
 
 
 def home(request):
-    return render(request, 'index.html')
+    chart_status_count = ["Entregue", "Aprovado", "Aprovado"]
+    chart_status = {}
+    for s in chart_status_count:
+        if s not in chart_status:
+            chart_status.update({s: {"quantidade": chart_status_count.count(s)}})
+    # for i in chart_status:
+    #     print(i, chart_status[i])
+    # test = chart_status
+    ctx = {
+        'status': chart_status
+    }
+    return render(request, 'index.html', ctx)
 
 
 def produtos(request):
