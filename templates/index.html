@@ -1,6 +1,5 @@
 {% load static custom_tags %}
-<!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +13,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
+            integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css"
+          integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w=="
+          crossorigin="anonymous"/>
     <script src="{% static 'fontawesome_free/js/all.min.js' %}"></script>
     <title>Aulas de Django, Python e Bootstrap</title>
 </head>
@@ -59,13 +64,9 @@
 <div class="container p-3 my-3 bg-dark text-white text-center rounded">
     {% block content %}
     <h1>Bem vindo</h1>
-    <ul>
-        {% for test in status %}
-        <li>
-            {{ test }} - {{ test|get_val:status }}
-        </li>
-        {% endfor %}
-    </ul>
+    <div style="height:300px;">
+        <canvas id="canvas_teste"  width="300" height="300"></canvas>
+    </div>
     <p>Aqui vamos aprender como desenvolver um website utilizando python, django, bootstrap e outras ferramentas que
         auxiliam um desenvolvimento mais rápido e responsivo para smartphone e desktop.</p>
     <button type="button" onclick="return calcular_desconto()">Calcular</button>
@@ -180,6 +181,23 @@
 </body>
 {% block script %}
 <script>
+new Chart($("#canvas_teste"), {
+   type: 'pie',
+    data: {
+      labels: [{% for data in status %}'{{ data }}',{% endfor %}],
+      datasets: [{
+        backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+        data: [{% for data in status %}'{{ data|get_val:status }}',{% endfor %}]
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Predicted world population (millions) in 2050'
+      }
+    }
+});
+
 function calcular_desconto(){
   const url = `{% url 'calcular' %}`;
   $.ajax({
@@ -219,6 +237,9 @@ function pesquisar_api(){
   })
   return false;
 }
+
+
+
 
 
 </script>
