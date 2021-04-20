@@ -117,11 +117,39 @@ class PesquisarAPI(View):
     def get(self, request):
         return render(request, 'testes_api.html')
 
+    FRETE_RODOVIARIO = "JADLOG-RODOVIARIO"
+    FRETE_EXPRESSO = "JADLOG-EXPRESSO"
+    JADLOG_CNPJ_CLIENTE = "81783912000189"
+    JADLOG_CODIGO_CLIENTE = "100878"
+    JADLOG_PASS_CLIENTE = "azoqTAV"
+    JADLOG_TOKEN_CLIENTE = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOjEwMDg3OCwiZHQiOiIyMDIxMDExMyJ9.LHZGXL45ObVDIO09fVSX5x2u1Q1EHH1mCwQZRdVK6iw"
+
     def post(self, request):
+        base_url = "http://www.jadlog.com.br/"
         headers = {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {self.JADLOG_TOKEN_CLIENTE}"
+
         }
-        response = requests.get("https://api.spacexdata.com/v4/launches/latest", headers=headers)
+        data = {
+            "frete": [
+                {
+                    "cepori": "89703496",
+                    "cepdes": "17213580",
+                    "frap": "N",
+                    "peso": 100.00,
+                    "cnpj": self.JADLOG_CNPJ_CLIENTE,
+                    "conta": self.JADLOG_CODIGO_CLIENTE,
+                    "contrato": "000",
+                    "modalidade": 0,
+                    "tpentrega": "D",
+                    "tpseguro": "N",
+                    "vldeclarado": 0,
+                    "vlcoleta": 0
+                }
+            ]
+        }
+        response = requests.post(f"{base_url}embarcador/api/pedido/incluir", headers=headers, json=data)
         if response.status_code == 200:
             return JsonResponse(response.json(), status=200, safe=False)
         else:

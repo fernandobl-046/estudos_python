@@ -212,21 +212,20 @@ function pesquisar_api(){
   const url = `{% url 'testes_api' %}`;
   const result_pesquisa = $("#result_pesquisa");
   const formData = {}
+  result_pesquisa.fadeIn("slow").delay("200");
   formData.csrfmiddlewaretoken = "{{ csrf_token }}";
   $.ajax({
     url: url,
     method: 'post',
     data:  formData,
-    success: data => {
-        console.log(data);
-        result_pesquisa.html(`<h3>${data.details}</h3>`)
-        result_pesquisa.append(`<img class="m-0" style="float:left;"" src="${data.links.patch.large}"
-                                width="500" height="auto">`);
-        result_pesquisa.append(`<iframe class="mt-5" width="560" height="315"
-                                src="https://www.youtube.com/embed/${data.links.youtube_id}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`);
+    success: response => {
+        result_pesquisa.html(`<h3 class="text-dark">${response.data.first_name} ${response.data.last_name}</h3>`);
+        result_pesquisa.append(`<img class="m-0" style="float:left;"" src="${response.data.avatar}"
+                                width="250" height="auto">`);
     },
     error: error => {
-      console.error(error);
+    console.log(error);
+      alert(error.responseJSON);
     }
   })
   return false;
